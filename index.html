@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>istruzione360.it — Il Portale Immersivo dell'Istruzione Italiana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #04080F;
+    --bg2: #080E1A;
+    --bg3: #0D1525;
+    --surface: #111C2E;
+    --surface2: #172240;
+    --border: rgba(100,160,255,0.12);
+    --border2: rgba(100,160,255,0.22);
+    --accent: #3B8BFF;
+    --accent2: #0055CC;
+    --gold: #F5C842;
+    --gold2: #C9960A;
+    --text: #E8EEF8;
+    --text2: #8FA4C4;
+    --text3: #4F6A8A;
+    --teal: #1ED8C0;
+    --coral: #FF6B4A;
+    --purple: #A47BFF;
+    --r: 10px;
+    --r2: 16px;
+    --r3: 24px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  h1,h2,h3,h4 { font-family: 'Syne', sans-serif; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(4,8,15,0.88);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; height: 64px;
+  }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.25rem; font-weight: 800;
+    letter-spacing: -0.5px;
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none; color: var(--text);
+  }
+  .logo-badge {
+    background: var(--accent);
+    color: white;
+    font-size: 10px; font-weight: 700;
+    padding: 3px 7px; border-radius: 5px;
+    letter-spacing: 1px;
+    font-family: 'DM Mono', monospace;
+  }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    color: var(--text2); font-size: 0.9rem;
+    text-decoration: none; transition: color 0.2s;
+    cursor: pointer;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--accent);
+    color: white !important;
+    padding: 8px 18px; border-radius: 8px;
+    font-weight: 500; font-size: 0.875rem;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: #5C9FFF !important; color: white !important; }
+
+  /* SECTIONS */
+  section { display: none; }
+  section.active { display: block; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    padding: 100px 2rem 4rem;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero-grid {
+    position: absolute; inset: 0; opacity: 0.06;
+    background-image:
+      linear-gradient(rgba(59,139,255,0.5) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,139,255,0.5) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+  .orb1 { width: 600px; height: 600px; top: -200px; left: -200px; background: rgba(59,139,255,0.12); }
+  .orb2 { width: 500px; height: 500px; bottom: -150px; right: -150px; background: rgba(164,123,255,0.1); }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem; letter-spacing: 3px;
+    color: var(--accent); text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .eyebrow-line { width: 32px; height: 1px; background: var(--accent); }
+  .hero h1 {
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 1.5rem;
+    max-width: 900px;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero h1 em { color: var(--gold); font-style: normal; }
+  .hero-sub {
+    font-size: 1.2rem; color: var(--text2); font-weight: 300;
+    max-width: 600px; line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .btn-primary {
+    background: var(--accent);
+    color: white; border: none; cursor: pointer;
+    padding: 14px 32px; border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem; font-weight: 500;
+    transition: all 0.2s; letter-spacing: 0.2px;
+  }
+  .btn-primary:hover { background: #5C9FFF; transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text); border: 1px solid var(--border2); cursor: pointer;
+    padding: 14px 32px; border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem; font-weight: 400;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 5rem;
+    padding-top: 3rem; border-top: 1px solid var(--border);
+  }
+  .stat { text-align: center; }
+  .stat-n {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.5rem; font-weight: 800;
+    color: var(--text); line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-n span { color: var(--accent); }
+  .stat-l { font-size: 0.8rem; color: var(--text3); letter-spacing: 1px; text-transform: uppercase; }
+
+  /* SEARCH BAR */
+  .search-section {
+    background: var(--bg2);
+    padding: 3rem 2rem;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .search-wrap { max-width: 800px; margin: 0 auto; }
+  .search-label {
+    font-size: 0.8rem; color: var(--text3);
+    letter-spacing: 2px; text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 1rem;
+  }
+  .search-bar {
+    display: flex; gap: 0; align-items: stretch;
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: var(--r2);
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .search-bar:focus-within { border-color: var(--accent); }
+  .search-bar input {
+    flex: 1; background: transparent; border: none; outline: none;
+    padding: 16px 20px;
+    font-family: 'DM Sans', sans-serif; font-size: 1rem;
+    color: var(--text);
+  }
+  .search-bar input::placeholder { color: var(--text3); }
+  .search-bar select {
+    background: var(--surface2); border: none; border-left: 1px solid var(--border);
+    padding: 0 16px; color: var(--text2); font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem; outline: none; cursor: pointer;
+  }
+  .search-bar button {
+    background: var(--accent); border: none; cursor: pointer;
+    padding: 0 24px; color: white;
+    font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.9rem;
+    transition: background 0.2s; white-space: nowrap;
+  }
+  .search-bar button:hover { background: #5C9FFF; }
+  .search-tags { display: flex; gap: 8px; margin-top: 1rem; flex-wrap: wrap; }
+  .tag {
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 5px 14px; border-radius: 100px;
+    font-size: 0.8rem; color: var(--text2); cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tag:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* CONTENT GRID */
+  .content-section { padding: 4rem 2rem; max-width: 1400px; margin: 0 auto; }
+  .section-header {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 2rem;
+  }
+  .section-title {
+    font-size: 1.4rem; font-weight: 700; letter-spacing: -0.5px;
+  }
+  .section-sub { color: var(--text3); font-size: 0.875rem; }
+  .see-all { color: var(--accent); font-size: 0.875rem; cursor: pointer; text-decoration: none; }
+  .see-all:hover { text-decoration: underline; }
+
+  /* FILTER TABS */
+  .filter-tabs { display: flex; gap: 6px; margin-bottom: 2rem; flex-wrap: wrap; }
+  .ftab {
+    padding: 8px 18px; border-radius: 100px;
+    border: 1px solid var(--border); background: transparent;
+    color: var(--text2); font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem; cursor: pointer; transition: all 0.2s;
+  }
+  .ftab:hover, .ftab.active {
+    background: var(--accent); color: white; border-color: var(--accent);
+  }
+
+  /* CARDS */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r2);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+  }
+  .card:hover {
+    border-color: var(--border2);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+  }
+  .card-thumb {
+    aspect-ratio: 16/9;
+    position: relative; overflow: hidden;
+    background: var(--bg3);
+  }
+  .card-thumb-inner {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+  }
+  .card-badge {
+    position: absolute; top: 10px; left: 10px;
+    padding: 4px 10px; border-radius: 6px;
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 1px;
+    text-transform: uppercase; font-family: 'DM Mono', monospace;
+  }
+  .badge-tour { background: rgba(30,216,192,0.2); color: var(--teal); border: 1px solid rgba(30,216,192,0.3); }
+  .badge-openday { background: rgba(245,200,66,0.15); color: var(--gold); border: 1px solid rgba(245,200,66,0.25); }
+  .badge-lezione { background: rgba(164,123,255,0.15); color: var(--purple); border: 1px solid rgba(164,123,255,0.25); }
+  .card-play {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: 48px; height: 48px; border-radius: 50%;
+    background: rgba(59,139,255,0.9);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .card:hover .card-play { opacity: 1; }
+  .card-play svg { margin-left: 3px; }
+  .card-body { padding: 1rem 1.25rem 1.25rem; }
+  .card-school {
+    font-size: 0.72rem; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 1px;
+    font-family: 'DM Mono', monospace; margin-bottom: 5px;
+  }
+  .card-title { font-size: 1rem; font-weight: 600; margin-bottom: 8px; line-height: 1.35; }
+  .card-meta { display: flex; gap: 12px; color: var(--text3); font-size: 0.78rem; }
+  .card-meta span { display: flex; align-items: center; gap: 4px; }
+
+  /* FEATURED ISTITUTI */
+  .istituti-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+  .istituto-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r2);
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .istituto-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .istituto-avatar {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+  }
+  .istituto-name { font-weight: 600; font-size: 0.95rem; line-height: 1.3; }
+  .istituto-loc { font-size: 0.8rem; color: var(--text3); }
+  .istituto-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+  .pill {
+    padding: 3px 9px; border-radius: 100px;
+    font-size: 0.7rem; font-weight: 500;
+  }
+  .pill-t { background: rgba(30,216,192,0.1); color: var(--teal); }
+  .pill-o { background: rgba(245,200,66,0.1); color: var(--gold2); }
+  .pill-l { background: rgba(164,123,255,0.1); color: var(--purple); }
+
+  /* ===== LOGIN / REGISTER ===== */
+  .auth-wrap {
+    min-height: 100vh;
+    padding: 80px 2rem;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .auth-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    max-width: 960px; width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r3); overflow: hidden;
+  }
+  .auth-left {
+    padding: 3rem; background: var(--bg3);
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .auth-left h2 { font-size: 2rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem; }
+  .auth-left p { color: var(--text2); line-height: 1.7; font-size: 0.95rem; }
+  .auth-features { margin-top: 2rem; display: flex; flex-direction: column; gap: 14px; }
+  .auth-feat {
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .feat-icon {
+    width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+  }
+  .feat-icon.t { background: rgba(30,216,192,0.1); }
+  .feat-icon.g { background: rgba(245,200,66,0.1); }
+  .feat-icon.p { background: rgba(164,123,255,0.1); }
+  .feat-icon.b { background: rgba(59,139,255,0.1); }
+  .feat-text strong { display: block; font-size: 0.875rem; font-weight: 600; }
+  .feat-text span { font-size: 0.8rem; color: var(--text3); }
+  .auth-right { padding: 3rem; }
+  .auth-tabs { display: flex; gap: 0; margin-bottom: 2rem; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .auth-tab {
+    flex: 1; padding: 10px; text-align: center; cursor: pointer;
+    font-size: 0.875rem; font-weight: 500;
+    background: transparent; border: none; color: var(--text2);
+    font-family: 'DM Sans', sans-serif; transition: all 0.2s;
+  }
+  .auth-tab.active { background: var(--accent); color: white; }
+  .form-group { margin-bottom: 1.25rem; }
+  .form-group label { display: block; font-size: 0.8rem; color: var(--text2); margin-bottom: 6px; }
+  .form-group input, .form-group select {
+    width: 100%; padding: 12px 14px;
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 8px; color: var(--text);
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    outline: none; transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus { border-color: var(--accent); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .btn-form {
+    width: 100%; padding: 14px;
+    background: var(--accent); color: white; border: none; cursor: pointer;
+    border-radius: 10px; font-family: 'Syne', sans-serif;
+    font-size: 1rem; font-weight: 700; letter-spacing: 0.3px;
+    transition: background 0.2s; margin-top: 0.5rem;
+  }
+  .btn-form:hover { background: #5C9FFF; }
+  .auth-divider {
+    display: flex; align-items: center; gap: 12px; margin: 1.5rem 0;
+    color: var(--text3); font-size: 0.8rem;
+  }
+  .auth-divider::before, .auth-divider::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  /* ===== DASHBOARD ===== */
+  .dash-layout { display: flex; min-height: 100vh; padding-top: 64px; }
+  .sidebar {
+    width: 260px; flex-shrink: 0;
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    padding: 2rem 0; position: sticky; top: 64px;
+    height: calc(100vh - 64px);
+    display: flex; flex-direction: column;
+  }
+  .sidebar-school {
+    padding: 0 1.5rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1rem;
+  }
+  .school-avatar-big {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: var(--surface2); border: 1px solid var(--border2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; margin-bottom: 10px;
+  }
+  .school-name { font-weight: 700; font-size: 0.95rem; line-height: 1.2; }
+  .school-type { font-size: 0.75rem; color: var(--text3); margin-top: 2px; }
+  .storage-bar-wrap { margin-top: 12px; }
+  .storage-label { font-size: 0.72rem; color: var(--text3); margin-bottom: 5px; display: flex; justify-content: space-between; }
+  .storage-bar { height: 4px; background: var(--surface2); border-radius: 2px; overflow: hidden; }
+  .storage-fill { height: 100%; background: var(--accent); border-radius: 2px; width: 38%; }
+  .nav-section {
+    padding: 0 1rem;
+    font-size: 0.68rem; color: var(--text3);
+    text-transform: uppercase; letter-spacing: 1.5px;
+    margin: 1rem 0 0.4rem;
+    font-family: 'DM Mono', monospace;
+  }
+  .side-link {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 1.5rem; color: var(--text2); font-size: 0.875rem;
+    cursor: pointer; transition: all 0.15s; border-radius: 0;
+    text-decoration: none; border-left: 3px solid transparent;
+  }
+  .side-link:hover { color: var(--text); background: var(--surface); }
+  .side-link.active { color: var(--accent); background: rgba(59,139,255,0.07); border-left-color: var(--accent); }
+  .side-icon { width: 18px; text-align: center; font-size: 0.95rem; }
+  .dash-main { flex: 1; padding: 2rem; overflow: auto; }
+  .dash-header { margin-bottom: 2.5rem; }
+  .dash-header h2 { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px; }
+  .dash-header p { color: var(--text2); margin-top: 4px; }
+  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2.5rem; }
+  .metric {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r2);
+    padding: 1.25rem;
+  }
+  .metric-val { font-size: 2rem; font-weight: 800; font-family: 'Syne', sans-serif; line-height: 1; }
+  .metric-val.blue { color: var(--accent); }
+  .metric-val.teal { color: var(--teal); }
+  .metric-val.gold { color: var(--gold); }
+  .metric-val.purple { color: var(--purple); }
+  .metric-label { font-size: 0.78rem; color: var(--text3); margin-top: 6px; letter-spacing: 0.5px; }
+  .dash-sections { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .dash-sec {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r2); overflow: hidden;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .dash-sec:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .dash-sec-header {
+    padding: 1.25rem 1.25rem 0;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .dash-sec-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+  }
+  .icon-teal { background: rgba(30,216,192,0.1); }
+  .icon-gold { background: rgba(245,200,66,0.1); }
+  .icon-purple { background: rgba(164,123,255,0.1); }
+  .dash-sec-title { font-weight: 700; font-size: 1rem; }
+  .dash-sec-sub { font-size: 0.78rem; color: var(--text3); }
+  .dash-sec-body { padding: 1rem 1.25rem 1.25rem; }
+  .dash-sec-count { font-size: 2rem; font-weight: 800; font-family: 'Syne', sans-serif; margin-bottom: 4px; }
+  .dash-sec-desc { font-size: 0.82rem; color: var(--text3); line-height: 1.5; }
+  .btn-upload {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; color: var(--accent);
+    border: 1px solid rgba(59,139,255,0.3); border-radius: 8px;
+    padding: 8px 14px; font-size: 0.82rem; cursor: pointer;
+    margin-top: 1rem; font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+  .btn-upload:hover { background: rgba(59,139,255,0.08); }
+
+  /* UPLOAD SECTION */
+  .upload-area {
+    border: 2px dashed var(--border2);
+    border-radius: var(--r2); padding: 3rem;
+    text-align: center; cursor: pointer;
+    transition: all 0.2s; margin-bottom: 2rem;
+  }
+  .upload-area:hover { border-color: var(--accent); background: rgba(59,139,255,0.04); }
+  .upload-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .upload-area h3 { font-weight: 600; margin-bottom: 8px; }
+  .upload-area p { color: var(--text3); font-size: 0.875rem; }
+  .upload-formats { margin-top: 12px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .format-chip {
+    padding: 3px 10px; border-radius: 100px;
+    background: var(--surface2); color: var(--text2);
+    font-size: 0.72rem; font-family: 'DM Mono', monospace;
+    border: 1px solid var(--border);
+  }
+  .recent-uploads { }
+  .upload-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 12px 0; border-bottom: 1px solid var(--border);
+  }
+  .upload-thumb {
+    width: 48px; height: 36px; border-radius: 6px;
+    background: var(--surface2); display: flex; align-items: center;
+    justify-content: center; font-size: 1rem; flex-shrink: 0;
+  }
+  .upload-info { flex: 1; }
+  .upload-name { font-size: 0.875rem; font-weight: 500; }
+  .upload-meta { font-size: 0.75rem; color: var(--text3); margin-top: 2px; }
+  .upload-status {
+    padding: 4px 10px; border-radius: 100px; font-size: 0.72rem; font-weight: 600;
+  }
+  .status-ok { background: rgba(30,216,192,0.1); color: var(--teal); }
+  .status-proc { background: rgba(245,200,66,0.1); color: var(--gold2); }
+  .status-pending { background: rgba(164,123,255,0.1); color: var(--purple); }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 3rem 2rem; margin-top: 4rem;
+  }
+  .footer-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+  }
+  .footer-brand p { color: var(--text3); font-size: 0.875rem; line-height: 1.7; margin-top: 0.75rem; }
+  .footer-col h4 { font-size: 0.8rem; color: var(--text2); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; font-family: 'DM Mono', monospace; }
+  .footer-col a { display: block; color: var(--text3); font-size: 0.875rem; text-decoration: none; margin-bottom: 8px; cursor: pointer; transition: color 0.15s; }
+  .footer-col a:hover { color: var(--accent); }
+  .footer-bottom { max-width: 1200px; margin: 2rem auto 0; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-bottom p { font-size: 0.8rem; color: var(--text3); }
+
+  /* PANORAMA VIEW MODAL */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.92);
+    display: none; align-items: center; justify-content: center;
+    padding: 2rem;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-box {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: var(--r3);
+    max-width: 700px; width: 100%;
+    padding: 2rem; position: relative;
+  }
+  .modal-close {
+    position: absolute; top: 1rem; right: 1rem;
+    background: var(--surface2); border: none; cursor: pointer;
+    color: var(--text2); width: 32px; height: 32px;
+    border-radius: 50%; font-size: 1.1rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--text); }
+  .panorama-thumb {
+    width: 100%; aspect-ratio: 16/9; border-radius: var(--r2);
+    background: var(--bg3); display: flex; align-items: center;
+    justify-content: center; font-size: 4rem; margin-bottom: 1.5rem;
+    border: 1px solid var(--border); overflow: hidden;
+    position: relative;
+  }
+  .pano-360-badge {
+    position: absolute; bottom: 12px; right: 12px;
+    background: rgba(59,139,255,0.85);
+    color: white; font-family: 'DM Mono', monospace;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 2px;
+    padding: 5px 10px; border-radius: 6px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .auth-grid { grid-template-columns: 1fr; }
+    .auth-left { display: none; }
+    .dash-layout { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: relative; }
+    .metrics { grid-template-columns: repeat(2, 1fr); }
+    .dash-sections { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .hero-stats { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" onclick="showSection('home')">
+    <div class="logo-badge">360°</div>
+    istruzione360<span style="color:var(--accent)">.it</span>
+  </a>
+  <div class="nav-links">
+    <a onclick="showSection('home')">Esplora</a>
+    <a onclick="showSection('home')">Istituti</a>
+    <a onclick="showSection('home')">Lezioni</a>
+    <a onclick="showSection('auth')" class="nav-cta">Accedi / Registrati</a>
+  </div>
+</nav>
+
+<!-- ===== HOME ===== -->
+<section id="home" class="active">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-orb orb1"></div>
+    <div class="hero-orb orb2"></div>
+    <div class="hero-eyebrow"><div class="eyebrow-line"></div>Il portale immersivo per la scuola italiana<div class="eyebrow-line"></div></div>
+    <h1>Esplora l'istruzione<br><span>in tutte le dimensioni</span></h1>
+    <p class="hero-sub">Tour virtuali degli istituti, Open Day in video 360° e lezioni immersive. Un'unica piattaforma per studenti, famiglie e docenti.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="document.querySelector('.search-section').scrollIntoView({behavior:'smooth'})">Scopri gli Istituti</button>
+      <button class="btn-secondary" onclick="showSection('auth')">Registra la tua scuola →</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-n">214<span>+</span></div><div class="stat-l">Istituti</div></div>
+      <div class="stat"><div class="stat-n">1.8<span>K</span></div><div class="stat-l">Contenuti</div></div>
+      <div class="stat"><div class="stat-n">360<span>°</span></div><div class="stat-l">Immersivo</div></div>
+      <div class="stat"><div class="stat-n">20<span>+</span></div><div class="stat-l">Regioni</div></div>
+    </div>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="search-section">
+    <div class="search-wrap">
+      <div class="search-label">Cerca istituti, contenuti, materie</div>
+      <div class="search-bar">
+        <input type="text" placeholder="Es. Liceo Classico Roma, Scienze, Open Day...">
+        <select>
+          <option>Tutti i tipi</option>
+          <option>Tour Virtuali</option>
+          <option>Open Day 360°</option>
+          <option>Lezioni 360°</option>
+        </select>
+        <button>Cerca</button>
+      </div>
+      <div class="search-tags">
+        <span class="tag">🏛 Liceo Scientifico</span>
+        <span class="tag">🎨 Istituto d'Arte</span>
+        <span class="tag">⚙️ ITIS</span>
+        <span class="tag">🌍 Scienze</span>
+        <span class="tag">📐 Matematica</span>
+        <span class="tag">🔬 Laboratori</span>
+        <span class="tag">🏫 Open Day</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content-section">
+
+    <!-- ISTITUTI -->
+    <div class="section-header">
+      <div><div class="section-title">Istituti in evidenza</div><div class="section-sub">Scuole con contenuti immersivi verificati</div></div>
+      <a class="see-all">Vedi tutti →</a>
+    </div>
+    <div class="istituti-grid" style="margin-bottom:3rem">
+      <div class="istituto-card">
+        <div class="istituto-avatar">🏛</div>
+        <div><div class="istituto-name">Liceo Classico Alessandro Manzoni</div><div class="istituto-loc">📍 Milano, Lombardia</div></div>
+        <div class="istituto-pills"><span class="pill pill-t">Tour virtuale</span><span class="pill pill-o">Open Day</span><span class="pill pill-l">Lezioni</span></div>
+      </div>
+      <div class="istituto-card">
+        <div class="istituto-avatar">⚙️</div>
+        <div><div class="istituto-name">ITIS Enrico Fermi</div><div class="istituto-loc">📍 Roma, Lazio</div></div>
+        <div class="istituto-pills"><span class="pill pill-t">Tour virtuale</span><span class="pill pill-o">Open Day</span></div>
+      </div>
+      <div class="istituto-card">
+        <div class="istituto-avatar">🎨</div>
+        <div><div class="istituto-name">Liceo Artistico Statale di Brera</div><div class="istituto-loc">📍 Milano, Lombardia</div></div>
+        <div class="istituto-pills"><span class="pill pill-t">Tour virtuale</span><span class="pill pill-l">Lezioni</span></div>
+      </div>
+      <div class="istituto-card">
+        <div class="istituto-avatar">🌊</div>
+        <div><div class="istituto-name">Istituto Nautico C. Colombo</div><div class="istituto-loc">📍 Cagliari, Sardegna</div></div>
+        <div class="istituto-pills"><span class="pill pill-t">Tour virtuale</span><span class="pill pill-o">Open Day</span><span class="pill pill-l">Lezioni</span></div>
+      </div>
+    </div>
+
+    <!-- FILTER TABS -->
+    <div class="filter-tabs">
+      <button class="ftab active" onclick="setTab(this)">Tutti</button>
+      <button class="ftab" onclick="setTab(this)">🌐 Tour Virtuali</button>
+      <button class="ftab" onclick="setTab(this)">🎥 Open Day 360°</button>
+      <button class="ftab" onclick="setTab(this)">📚 Lezioni 360°</button>
+    </div>
+
+    <div class="section-header">
+      <div><div class="section-title">Contenuti recenti</div></div>
+      <a class="see-all">Ordina per: Recenti ↓</a>
+    </div>
+
+    <div class="card-grid">
+      <!-- Card 1 -->
+      <div class="card" onclick="openModal()">
+        <div class="card-thumb">
+          <div class="card-thumb-inner" style="background: linear-gradient(135deg,#0d1a2e,#0a2040)">🏛</div>
+          <div class="card-badge badge-tour">Tour Virtuale</div>
+          <div class="card-play"><svg width="14" height="16" viewBox="0 0 14 16" fill="white"><path d="M0 0l14 8L0 16V0z"/></svg></div>
+        </div>
+        <div class="card-body">
+          <div class="card-school">Lic. Classico Manzoni · Milano</div>
+          <div class="card-title">Tour completo: biblioteca storica e cortile</div>
+          <div class="card-meta"><span>🌐 360°</span><span>⏱ 4:20</span><span>👁 1.2K</span></div>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="card" onclick="openModal()">
+        <div class="card-thumb">
+          <div class="card-thumb-inner" style="background: linear-gradient(135deg,#1a0d0d,#2d1000)">🔬</div>
+          <div class="card-badge badge-openday">Open Day</div>
+          <div class="card-play"><svg width="14" height="16" viewBox="0 0 14 16" fill="white"><path d="M0 0l14 8L0 16V0z"/></svg></div>
+        </div>
+        <div class="card-body">
+          <div class="card-school">ITIS Fermi · Roma</div>
+          <div class="card-title">Prof. Rossi presenta il Laboratorio di Robotica</div>
+          <div class="card-meta"><span>🎥 Video 360°</span><span>⏱ 8:15</span><span>👁 890</span></div>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="card" onclick="openModal()">
+        <div class="card-thumb">
+          <div class="card-thumb-inner" style="background: linear-gradient(135deg,#0d1a0d,#001a10)">🌍</div>
+          <div class="card-badge badge-lezione">Lezione 360°</div>
+          <div class="card-play"><svg width="14" height="16" viewBox="0 0 14 16" fill="white"><path d="M0 0l14 8L0 16V0z"/></svg></div>
+        </div>
+        <div class="card-body">
+          <div class="card-school">Liceo Scientifico Volta · Torino</div>
+          <div class="card-title">Il Sistema Solare — Lezione immersiva 360°</div>
+          <div class="card-meta"><span>📚 Scienze</span><span>⏱ 12:30</span><span>👁 3.4K</span></div>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="card" onclick="openModal()">
+        <div class="card-thumb">
+          <div class="card-thumb-inner" style="background: linear-gradient(135deg,#15100d,#2a1800)">🎨</div>
+          <div class="card-badge badge-tour">Tour Virtuale</div>
+          <div class="card-play"><svg width="14" height="16" viewBox="0 0 14 16" fill="white"><path d="M0 0l14 8L0 16V0z"/></svg></div>
+        </div>
+        <div class="card-body">
+          <div class="card-school">Lic. Artistico Brera · Milano</div>
+          <div class="card-title">Galleria e atelier: tour immersivo degli spazi</div>
+          <div class="card-meta"><span>🌐 360°</span><span>⏱ 6:45</span><span>👁 2.1K</span></div>
+        </div>
+      </div>
+      <!-- Card 5 -->
+      <div class="card" onclick="openModal()">
+        <div class="card-thumb">
+          <div class="card-thumb-inner" style="background: linear-gradient(135deg,#0a0d1a,#050a20)">⚓</div>
+          <div class="card-badge badge-openday">Open Day</div>
+          <div class="card-play"><svg width="14" height="16" viewBox="0 0 14 16" fill="white"><path d="M0 0l14 8L0 16V0z"/></svg></div>
+        </div>
+        <div class="card-body">
+          <div class="card-school">Ist. Nautico Colombo · Cagliari</div>
+          <div class="card-title">Simulatore di navigazione — Open Day virtuale</div>
+          <div class="card-meta"><span>🎥 Video 360°</span><span>⏱ 5:00</span><span>👁 670</span></div>
+        </div>
+      </div>
+      <!-- Card 6 -->
+      <div class="card" onclick="openModal()">
+        <div class="card-thumb">
+          <div class="card-thumb-inner" style="background: linear-gradient(135deg,#100d1a,#180020)">📐</div>
+          <div class="card-badge badge-lezione">Lezione 360°</div>
+          <div class="card-play"><svg width="14" height="16" viewBox="0 0 14 16" fill="white"><path d="M0 0l14 8L0 16V0z"/></svg></div>
+        </div>
+        <div class="card-body">
+          <div class="card-school">IIS Leonardo da Vinci · Firenze</div>
+          <div class="card-title">Geometria euclidea nello spazio — ambiente VR</div>
+          <div class="card-meta"><span>📚 Matematica</span><span>⏱ 18:00</span><span>👁 4.8K</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo" style="cursor:default">
+          <div class="logo-badge">360°</div>
+          istruzione360<span style="color:var(--accent)">.it</span>
+        </div>
+        <p>La piattaforma immersiva per l'istruzione italiana. Tour virtuali, Open Day 360° e lezioni immersive per studenti, famiglie e docenti.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Esplora</h4>
+        <a>Tour Virtuali</a>
+        <a>Open Day 360°</a>
+        <a>Lezioni Immersive</a>
+        <a>Tutti gli Istituti</a>
+      </div>
+      <div class="footer-col">
+        <h4>Istituti</h4>
+        <a onclick="showSection('auth')">Registrati</a>
+        <a onclick="showSection('auth')">Accedi</a>
+        <a>Dashboard</a>
+        <a>Prezzi</a>
+      </div>
+      <div class="footer-col">
+        <h4>Info</h4>
+        <a>Chi siamo</a>
+        <a>Privacy Policy</a>
+        <a>Contatti</a>
+        <a>GDPR</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 istruzione360.it — Tutti i diritti riservati</p>
+      <p style="color:var(--text3);font-size:0.75rem">Powered by <span style="color:var(--accent)">tourvirtuale.digital</span></p>
+    </div>
+  </footer>
+
+</section>
+
+<!-- ===== AUTH ===== -->
+<section id="auth">
+  <div class="auth-wrap">
+    <div class="hero-orb orb1"></div>
+    <div class="hero-orb orb2"></div>
+    <div class="auth-grid">
+      <div class="auth-left">
+        <div>
+          <div style="margin-bottom:2rem">
+            <div class="logo-badge" style="display:inline-block;margin-bottom:1rem">360°</div>
+            <h2>Il portale immersivo<br>per la <span style="color:var(--accent)">tua scuola</span></h2>
+            <p>Carica tour virtuali, video Open Day e lezioni 360°. Rendi visibile il tuo istituto su tutto il territorio nazionale.</p>
+          </div>
+          <div class="auth-features">
+            <div class="auth-feat">
+              <div class="feat-icon t">🌐</div>
+              <div class="feat-text"><strong>Tour Virtuali 360°</strong><span>Carica panoramiche equirettangolari e tour Matterport</span></div>
+            </div>
+            <div class="auth-feat">
+              <div class="feat-icon g">🎥</div>
+              <div class="feat-text"><strong>Open Day Video 360°</strong><span>Presenta i tuoi spazi con video immersivi dei professori</span></div>
+            </div>
+            <div class="auth-feat">
+              <div class="feat-icon p">📚</div>
+              <div class="feat-text"><strong>Lezioni Immersive</strong><span>Contenuti 360° divisi per materia e tematica</span></div>
+            </div>
+            <div class="auth-feat">
+              <div class="feat-icon b">☁️</div>
+              <div class="feat-text"><strong>Cloud Storage dedicato</strong><span>Spazio cloud protetto e dashboard di gestione</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="font-size:0.75rem;color:var(--text3);margin-top:2rem">
+          Progetto sviluppato con tecnologia <span style="color:var(--accent)">tourvirtuale.digital</span>
+        </div>
+      </div>
+      <div class="auth-right">
+        <div class="auth-tabs">
+          <button class="auth-tab active" onclick="switchTab('login',this)">Accedi</button>
+          <button class="auth-tab" onclick="switchTab('register',this)">Registra istituto</button>
+        </div>
+
+        <div id="login-form">
+          <div class="form-group">
+            <label>Email istituzionale</label>
+            <input type="email" placeholder="direzione@scuola.edu.it">
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" placeholder="••••••••••">
+          </div>
+          <button class="btn-form" onclick="showSection('dashboard')">Accedi alla Dashboard</button>
+          <div class="auth-divider">oppure</div>
+          <button class="btn-form" style="background:var(--surface);color:var(--text);border:1px solid var(--border)">🏛 Accedi con SPID</button>
+          <p style="font-size:0.78rem;color:var(--text3);text-align:center;margin-top:1.5rem">
+            Non hai un account? <span style="color:var(--accent);cursor:pointer" onclick="switchTabByName('register')">Registra il tuo istituto</span>
+          </p>
+        </div>
+
+        <div id="register-form" style="display:none">
+          <div class="form-row">
+            <div class="form-group"><label>Nome istituto</label><input type="text" placeholder="Liceo Classico Manzoni"></div>
+            <div class="form-group"><label>Codice meccanografico</label><input type="text" placeholder="MIPC01500C"></div>
+          </div>
+          <div class="form-group">
+            <label>Tipologia istituto</label>
+            <select>
+              <option>Seleziona tipologia</option>
+              <option>Liceo Scientifico</option>
+              <option>Liceo Classico</option>
+              <option>Liceo Artistico</option>
+              <option>ITIS / Istituto Tecnico</option>
+              <option>Istituto Professionale</option>
+              <option>Istituto Comprensivo</option>
+              <option>Università / Accademia</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Città</label><input type="text" placeholder="Roma"></div>
+            <div class="form-group"><label>Regione</label><select><option>Regione</option><option>Sardegna</option><option>Lazio</option><option>Lombardia</option><option>Sicilia</option><option>Toscana</option></select></div>
+          </div>
+          <div class="form-group"><label>Email istituzionale</label><input type="email" placeholder="direzione@scuola.edu.it"></div>
+          <div class="form-row">
+            <div class="form-group"><label>Password</label><input type="password" placeholder="••••••••"></div>
+            <div class="form-group"><label>Conferma password</label><input type="password" placeholder="••••••••"></div>
+          </div>
+          <button class="btn-form" onclick="showSection('dashboard')">Registra e accedi →</button>
+          <p style="font-size:0.72rem;color:var(--text3);text-align:center;margin-top:1rem">
+            Registrandoti accetti i <span style="color:var(--accent);cursor:pointer">Termini di servizio</span> e la <span style="color:var(--accent);cursor:pointer">Privacy Policy</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DASHBOARD ===== -->
+<section id="dashboard">
+  <div class="dash-layout">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-school">
+        <div class="school-avatar-big">🌊</div>
+        <div class="school-name">Istituto Nautico C. Colombo</div>
+        <div class="school-type">Istituto Tecnico · Cagliari</div>
+        <div class="storage-bar-wrap">
+          <div class="storage-label"><span>Spazio cloud</span><span>3.8 / 10 GB</span></div>
+          <div class="storage-bar"><div class="storage-fill"></div></div>
+        </div>
+      </div>
+      <div class="nav-section">Panoramica</div>
+      <div class="side-link active" onclick="setDashView('overview',this)"><span class="side-icon">⊞</span> Dashboard</div>
+      <div class="side-link" onclick="setDashView('overview',this)"><span class="side-icon">☁️</span> Spazio Cloud</div>
+      <div class="nav-section">Sezioni Contenuti</div>
+      <div class="side-link" onclick="setDashView('tour',this)"><span class="side-icon">🌐</span> Tour Virtuali</div>
+      <div class="side-link" onclick="setDashView('openday',this)"><span class="side-icon">🎥</span> Open Day 360°</div>
+      <div class="side-link" onclick="setDashView('lezioni',this)"><span class="side-icon">📚</span> Lezioni 360°</div>
+      <div class="nav-section">Impostazioni</div>
+      <div class="side-link" onclick="setDashView('overview',this)"><span class="side-icon">🏫</span> Profilo Istituto</div>
+      <div class="side-link" onclick="setDashView('overview',this)"><span class="side-icon">👤</span> Utenti & Ruoli</div>
+      <div style="margin-top:auto;padding:1.5rem;border-top:1px solid var(--border)">
+        <div class="side-link" onclick="showSection('home')" style="padding-left:0"><span class="side-icon">←</span> Torna al portale</div>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="dash-main">
+
+      <!-- OVERVIEW -->
+      <div id="view-overview">
+        <div class="dash-header">
+          <h2>Benvenuto, Istituto Colombo 👋</h2>
+          <p>Gestisci i tuoi contenuti immersivi e monitora le visualizzazioni</p>
+        </div>
+        <div class="metrics">
+          <div class="metric"><div class="metric-val blue">12</div><div class="metric-label">Tour caricati</div></div>
+          <div class="metric"><div class="metric-val teal">5</div><div class="metric-label">Video Open Day</div></div>
+          <div class="metric"><div class="metric-val gold">28</div><div class="metric-label">Lezioni 360°</div></div>
+          <div class="metric"><div class="metric-val purple">8.4K</div><div class="metric-label">Visualizzazioni totali</div></div>
+        </div>
+        <div class="section-header"><div class="section-title">Le tre sezioni</div></div>
+        <div class="dash-sections">
+          <div class="dash-sec" onclick="setDashView('tour', document.querySelector('.side-link:nth-child(6)'))">
+            <div class="dash-sec-header">
+              <div class="dash-sec-icon icon-teal">🌐</div>
+              <div><div class="dash-sec-title">Tour Virtuali</div><div class="dash-sec-sub">Foto 360° e tour Matterport</div></div>
+            </div>
+            <div class="dash-sec-body">
+              <div class="dash-sec-count" style="color:var(--teal)">12</div>
+              <div class="dash-sec-desc">Tour panoramici degli spazi scolastici, aule, laboratori, palestre e aree esterne.</div>
+              <button class="btn-upload">+ Carica Tour</button>
+            </div>
+          </div>
+          <div class="dash-sec" onclick="setDashView('openday', document.querySelector('.side-link:nth-child(7)'))">
+            <div class="dash-sec-header">
+              <div class="dash-sec-icon icon-gold">🎥</div>
+              <div><div class="dash-sec-title">Open Day 360°</div><div class="dash-sec-sub">Video dei professori</div></div>
+            </div>
+            <div class="dash-sec-body">
+              <div class="dash-sec-count" style="color:var(--gold)">5</div>
+              <div class="dash-sec-desc">Video immersivi 360° dei docenti che presentano ambienti e percorsi didattici.</div>
+              <button class="btn-upload">+ Carica Video</button>
+            </div>
+          </div>
+          <div class="dash-sec" onclick="setDashView('lezioni', document.querySelector('.side-link:nth-child(8)'))">
+            <div class="dash-sec-header">
+              <div class="dash-sec-icon icon-purple">📚</div>
+              <div><div class="dash-sec-title">Lezioni 360°</div><div class="dash-sec-sub">Contenuti per tematica</div></div>
+            </div>
+            <div class="dash-sec-body">
+              <div class="dash-sec-count" style="color:var(--purple)">28</div>
+              <div class="dash-sec-desc">Contenuti immersivi suddivisi per materia e tematica didattica.</div>
+              <button class="btn-upload">+ Carica Lezione</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOUR VIRTUALI -->
+      <div id="view-tour" style="display:none">
+        <div class="dash-header">
+          <h2>🌐 Tour Virtuali</h2>
+          <p>Gestisci le foto 360° e i tour virtuali del tuo istituto</p>
+        </div>
+        <div class="upload-area">
+          <div class="upload-icon">🌐</div>
+          <h3>Carica nuove foto 360° o tour virtuale</h3>
+          <p>Trascina qui i file oppure clicca per sfogliare</p>
+          <div class="upload-formats">
+            <span class="format-chip">.jpg / .jpeg</span>
+            <span class="format-chip">.png</span>
+            <span class="format-chip">Equirettangolare</span>
+            <span class="format-chip">Matterport Link</span>
+            <span class="format-chip">Kuula Link</span>
+          </div>
+        </div>
+        <div class="section-header"><div class="section-title">Tour caricati</div></div>
+        <div class="recent-uploads">
+          <div class="upload-item"><div class="upload-thumb">🏊</div><div class="upload-info"><div class="upload-name">Palestra e piscina didattica</div><div class="upload-meta">12 foto · 48 MB · caricato 3 giorni fa</div></div><span class="upload-status status-ok">Pubblicato</span></div>
+          <div class="upload-item"><div class="upload-thumb">⚓</div><div class="upload-info"><div class="upload-name">Simulatore di navigazione</div><div class="upload-meta">8 foto · 32 MB · caricato 5 giorni fa</div></div><span class="upload-status status-ok">Pubblicato</span></div>
+          <div class="upload-item"><div class="upload-thumb">🔬</div><div class="upload-info"><div class="upload-name">Laboratorio di scienze marine</div><div class="upload-meta">15 foto · 61 MB · caricato 1 settimana fa</div></div><span class="upload-status status-proc">In elaborazione</span></div>
+          <div class="upload-item"><div class="upload-thumb">📚</div><div class="upload-info"><div class="upload-name">Biblioteca e aula studio</div><div class="upload-meta">6 foto · 22 MB · caricato 2 settimane fa</div></div><span class="upload-status status-ok">Pubblicato</span></div>
+        </div>
+      </div>
+
+      <!-- OPEN DAY -->
+      <div id="view-openday" style="display:none">
+        <div class="dash-header">
+          <h2>🎥 Open Day 360°</h2>
+          <p>Video immersivi dei professori che presentano gli ambienti scolastici</p>
+        </div>
+        <div class="upload-area" style="border-color:rgba(245,200,66,0.3)">
+          <div class="upload-icon">🎥</div>
+          <h3>Carica un nuovo video Open Day 360°</h3>
+          <p>Video sferici equirettangolari dei docenti in presentazione</p>
+          <div class="upload-formats">
+            <span class="format-chip">.mp4</span>
+            <span class="format-chip">.mov</span>
+            <span class="format-chip">.mkv</span>
+            <span class="format-chip">360° / VR</span>
+            <span class="format-chip">max 4K</span>
+          </div>
+        </div>
+        <div class="section-header"><div class="section-title">Video Open Day caricati</div></div>
+        <div class="recent-uploads">
+          <div class="upload-item"><div class="upload-thumb">👨‍🏫</div><div class="upload-info"><div class="upload-name">Prof. Marini — Laboratorio di Navigazione</div><div class="upload-meta">Video 360° · 2.1 GB · 8:32 · caricato 1 giorno fa</div></div><span class="upload-status status-proc">In elaborazione</span></div>
+          <div class="upload-item"><div class="upload-thumb">👩‍🏫</div><div class="upload-info"><div class="upload-name">Prof.ssa Serra — Aula di Scienze Marine</div><div class="upload-meta">Video 360° · 1.8 GB · 6:14 · caricato 4 giorni fa</div></div><span class="upload-status status-ok">Pubblicato</span></div>
+          <div class="upload-item"><div class="upload-thumb">🎓</div><div class="upload-info"><div class="upload-name">Preside Conti — Tour benvenuto istituto</div><div class="upload-meta">Video 360° · 980 MB · 3:45 · caricato 2 settimane fa</div></div><span class="upload-status status-ok">Pubblicato</span></div>
+        </div>
+      </div>
+
+      <!-- LEZIONI -->
+      <div id="view-lezioni" style="display:none">
+        <div class="dash-header">
+          <h2>📚 Lezioni 360°</h2>
+          <p>Contenuti didattici immersivi organizzati per materia e tematica</p>
+        </div>
+        <div class="filter-tabs" style="margin-bottom:1.5rem">
+          <button class="ftab active" onclick="setTab(this)">Tutte le materie</button>
+          <button class="ftab" onclick="setTab(this)">🌊 Scienze Marine</button>
+          <button class="ftab" onclick="setTab(this)">⚓ Navigazione</button>
+          <button class="ftab" onclick="setTab(this)">🌍 Geografia</button>
+          <button class="ftab" onclick="setTab(this)">⚙️ Meccanica</button>
+        </div>
+        <div class="upload-area" style="border-color:rgba(164,123,255,0.3)">
+          <div class="upload-icon">📚</div>
+          <h3>Carica una nuova lezione 360°</h3>
+          <p>Video o panoramiche interattive per la didattica immersiva</p>
+          <div class="upload-formats">
+            <span class="format-chip">.mp4 360°</span>
+            <span class="format-chip">.jpg Equirettangolare</span>
+            <span class="format-chip">Link Kuula</span>
+          </div>
+        </div>
+        <div class="section-header"><div class="section-title">Lezioni caricate (28)</div></div>
+        <div class="recent-uploads">
+          <div class="upload-item"><div class="upload-thumb">🌊</div><div class="upload-info"><div class="upload-name">Ecosistemi marini del Mediterraneo</div><div class="upload-meta">Scienze Marine · Video 360° · 15:20 · 1.2K views</div></div><span class="upload-status status-ok">Pubblicato</span></div>
+          <div class="upload-item"><div class="upload-thumb">⚓</div><div class="upload-info"><div class="upload-name">Tecniche di ormeggio — simulazione VR</div><div class="upload-meta">Navigazione · Video 360° · 22:10 · 890 views</div></div><span class="upload-status status-ok">Pubblicato</span></div>
+          <div class="upload-item"><div class="upload-thumb">🌍</div><div class="upload-info"><div class="upload-name">Rotte commerciali mediterranee — mappa immersiva</div><div class="upload-meta">Geografia · Panoramica 360° · 8:45 · 670 views</div></div><span class="upload-status status-pending">Bozza</span></div>
+          <div class="upload-item"><div class="upload-thumb">⚙️</div><div class="upload-info"><div class="upload-name">Motori marini — smontaggio virtuale 3D</div><div class="upload-meta">Meccanica Navale · Video 360° · 31:05 · 2.3K views</div></div><span class="upload-status status-ok">Pubblicato</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MODAL PREVIEW -->
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="panorama-thumb">
+      <span style="font-size:5rem">🌐</span>
+      <div class="pano-360-badge">360° VR</div>
+    </div>
+    <div class="card-school">Istituto Nautico C. Colombo · Cagliari</div>
+    <h3 style="margin:6px 0 10px;font-size:1.2rem">Simulatore di navigazione — vista immersiva</h3>
+    <p style="color:var(--text2);font-size:0.875rem;line-height:1.6;margin-bottom:1.5rem">Tour virtuale 360° dell'aula simulatore. Clicca per esplorare l'ambiente in modalità immersiva full-screen oppure condividi con i tuoi studenti.</p>
+    <div style="display:flex;gap:10px">
+      <button class="btn-primary" style="flex:1">▶ Apri viewer 360°</button>
+      <button class="btn-secondary">Condividi</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function switchTab(name, btn) {
+  const isLogin = name === 'login';
+  document.getElementById('login-form').style.display = isLogin ? 'block' : 'none';
+  document.getElementById('register-form').style.display = isLogin ? 'none' : 'block';
+  document.querySelectorAll('.auth-tab').forEach((t,i) => {
+    t.classList.toggle('active', isLogin ? i===0 : i===1);
+  });
+}
+function switchTabByName(n) { switchTab(n); }
+document.querySelectorAll('.auth-tab').forEach((btn,i) => {
+  btn.addEventListener('click', () => switchTab(i===0?'login':'register', btn));
+});
+function setTab(el) {
+  el.closest('.filter-tabs').querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+function setDashView(view, clickedLink) {
+  ['overview','tour','openday','lezioni'].forEach(v => {
+    const el = document.getElementById('view-'+v);
+    if(el) el.style.display = v===view ? 'block' : 'none';
+  });
+  document.querySelectorAll('.side-link').forEach(l => l.classList.remove('active'));
+  if(clickedLink) clickedLink.classList.add('active');
+}
+function openModal() { document.getElementById('modal').classList.add('open'); }
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+</script>
+</body>
+</html>
